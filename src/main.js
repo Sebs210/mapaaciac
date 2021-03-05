@@ -1,0 +1,26 @@
+import 'leaflet/dist/leaflet.css';   
+import './scss/main.scss';
+import Vue from 'vue';
+import App from './App.vue';
+import { Icon } from 'leaflet';
+import { store } from './store.js';
+import { router } from './routes.js';
+
+
+Vue.config.productionTip = false
+
+new Vue({
+  store: store,
+  render: h => h(App),
+  router,
+}).$mount('#app')
+
+
+// Make work vue-leaflet's icons
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
+
